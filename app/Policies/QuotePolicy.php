@@ -6,12 +6,13 @@ use App\Models\Quote;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class QuotePolicy{
+class QuotePolicy
+{
     use HandlesAuthorization;
 
     public function viewAny(User $user): bool
     {
-        //
+
     }
 
     public function view(User $user, Quote $quote): bool

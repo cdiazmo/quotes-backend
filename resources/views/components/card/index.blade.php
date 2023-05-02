@@ -1,7 +1,7 @@
-<div {{$attributes->merge(['class'=>'card'])}}>
+<div {{$attributes->merge(['class'=>'card c-card'])}}>
 
     @isset($header)
-        <div {{ $header->attributes->class(['card-header py-3'])}}>
+        <div {{ $header->attributes->class(['card-header py-3 m-0 row'])}}>
             {{$header}}
         </div>
     @endisset
@@ -16,7 +16,7 @@
 
 
     @isset($footer)
-        <div class="card-footer">
+        <div {{ $footer->attributes->class(['card-footer'])}}>
             {{ $footer }}
         </div>
     @endisset

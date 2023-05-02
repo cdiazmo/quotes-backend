@@ -1,53 +1,48 @@
-<div
-    wire:ignore
-    x-data
-    x-init="
-        () => {
-            const filepond = FilePond.create($refs.filepond);
-            filepond.setOptions({
-                allowMultiple: {{ $attributes->has('multiple') ? 'true' : 'false' }},
-                server: {
-                    process:(fieldName, file, metadata, load, error, progress, abort, transfer, options) => {
-                        @this.upload('{{ $attributes->whereStartsWith('wire:model')->first() }}', file, load, error, progress)
-                    },
-                    revert: (filename, load) => {
-                        @this.removeUpload('{{ $attributes->whereStartsWith('wire:model')->first() }}', filename, load)
-                    },
-                },
-                allowImagePreview: {{ $attributes->has('allowFileTypeValidation') ? 'true' : 'false' }},
-                imagePreviewMaxHeight: {{ $attributes->has('imagePreviewMaxHeight') ? $attributes->get('imagePreviewMaxHeight') : '256' }},
-                allowFileTypeValidation: {{ $attributes->has('allowFileTypeValidation') ? 'true' : 'false' }},
-                acceptedFileTypes: {!! $attributes->get('acceptedFileTypes') ?? 'null' !!},
-                allowFileSizeValidation: {{ $attributes->has('allowFileSizeValidation') ? 'true' : 'false' }},
-                maxFileSize: {!! $attributes->has('maxFileSize') ? "'".$attributes->get('maxFileSize')."'" : 'null' !!}
-            });
-        }
-    "
->
-    <input type="file" x-ref="filepond"/>
+@pushonce('custom-css')
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+    <link href="https://unpkg.com/filepond-plugin-file-poster/dist/filepond-plugin-file-poster.css"
+          rel="stylesheet"/>
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
+          rel="stylesheet">
+@endpushonce
+
+<div>
+    @if($label)
+        <x-form.label name="{{ $name }}" label="{{$label}}" class="col-form-label"></x-form.label>
+    @endif
+
+    <input type="file" name="{{$name}}" class="filepond" {{$attributes}} />
 </div>
 
-@push('custom-css')
-    @once
-        <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
-        <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
-              rel="stylesheet">
-    @endonce
-@endpush
+@pushonce('custom-js')
+    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-file-poster/dist/filepond-plugin-file-poster.js"></script>
+    <script
+        src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
+    <script
+        src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
+    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
 
-@push('custom-js')
-    @once
-        <script
-            src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
-        <script
-            src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
-        <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-        <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
-        <script>
-            // FilePond.registerPlugin(FilePondPluginImagePreview);
-            FilePond.registerPlugin(FilePondPluginFileValidateType);
-            FilePond.registerPlugin(FilePondPluginFileValidateSize);
-            FilePond.registerPlugin(FilePondPluginImagePreview);
-        </script>
-    @endonce
-@endpush
+    <script>
+        const fieldsetElement = document.querySelector('.filepond');
+
+        FilePond.create(fieldsetElement);
+
+        FilePond.setOptions({
+            acceptedFileTypes: ['image/png'],
+            server: {
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                },
+                process: '/file-upload',
+                files: {{$files}}
+            },
+        });
+
+        FilePond.registerPlugin(FilePondPluginImagePreview);
+        FilePond.registerPlugin(FilePondPluginFilePoster);
+        FilePond.registerPlugin(FilePondPluginFileValidateType);
+        FilePond.registerPlugin(FilePondPluginFileValidateSize);
+    </script>
+@endpushonce
+

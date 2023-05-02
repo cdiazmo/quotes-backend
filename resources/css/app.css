@@ -1,3 +1,106 @@
 /* @tailwind base;
 @tailwind components;
 @tailwind utilities; */
+
+@import "datatables.net-bs4/css/dataTables.bootstrap4.css";
+@import "datatables.net-buttons-bs4/css/buttons.bootstrap4.css";
+/*@import '~datatables.net-select-bs4/css/select.dataTables.css';*/
+/*@import '~datatables.net-searchpanes-dt/css/searchPanes.dataTables.css';*/
+
+body {
+    /*font-family: 'Krub', sans-serif !important;*/
+
+    font-family: 'Krub', sans-serif, 'Open Sans', sans-serif, 'Poppins', sans-serif, 'Radio Canada', sans-serif !Important;
+}
+
+.c-card {
+    border-radius: 17px !important;
+    box-shadow: 0 0 1px rgb(0 0 0 / 13%), 0 0px 12px rgb(0 0 0 / 20%) !important;
+}
+
+.c-card .card-header {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.125) !important;
+}
+
+.c-card .card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.sidebar-icon {
+    width: 34px;
+    background: white;
+    padding: 6px;
+    border-radius: 7px;
+    opacity: .8;
+}
+
+.error-help-block {
+    color: #dc3545 !important
+}
+
+.img-preview {
+    position: relative;
+    width: 100% !important;
+    height: 220px !important;
+    border-radius: 5px;
+    object-fit: fill;
+}
+
+.sticker-img-preview {
+    position: relative;
+    width: 100% !important;
+    height: 159px;
+    border-radius: 5px;
+    object-fit: fill;
+    border: 1px solid #ddd;
+    padding: 12px;
+}
+
+.btn-delete-img {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+}
+
+.filepond--root.filepond--hopper .help-block {
+    position: absolute;
+    bottom: -25px;
+}
+
+.has-select2 .error-help-block {
+    position: absolute;
+    bottom: 17px !important;
+}
+
+.brand-link {
+    padding: 20px 2px 0px 5px !important;
+}
+
+.elevation-4 {
+    box-shadow: 0 0px 5px rgb(0 0 0 / 25%), 0 10px 10px rgb(0 0 0 / 22%) !important;
+}
+
+.nav-sidebar > .nav-item > .nav-link.active {
+    background-color: #57AFBD !important;
+    color: white !important;
+    opacity: 0.76 !important;
+
+}
+
+.sidebar {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.sidebar-mini .main-sidebar .nav-link, .sidebar-mini-md .main-sidebar .nav-link, .sidebar-mini-xs .main-sidebar .nav-link {
+    width: calc(250px - 0rem * 2) !important;
+}
+
+.nav-pills .nav-link {
+    border-radius: 0px !important;
+}
+
+.nav-sidebar .nav-item {
+    border-radius: 0px !important;
+}

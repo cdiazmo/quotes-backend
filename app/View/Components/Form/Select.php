@@ -12,8 +12,9 @@ class Select extends Component
     public string $selected;
     public bool $emptyOption;
     public string $emptyOptionText;
+    public array $selectedValue;
 
-    public function __construct($name, $id = null, $options = [], $selected = '', $emptyOption = true, $emptyOptionText = "Choose option")
+    public function __construct($name, $id = null, $options = [], $selected = '', $emptyOption = true, $emptyOptionText = "Choose option", $selectedValue = [])
     {
         $this->name = $name;
         $this->id = $id ?? $name;
@@ -21,10 +22,14 @@ class Select extends Component
         $this->selected = old($name, $selected);
         $this->emptyOption = $emptyOption;
         $this->emptyOptionText = $emptyOptionText;
+        $this->selectedValue = $selectedValue;
     }
 
     public function isSelected($option)
     {
+        if (count($this->selectedValue) > 0) {
+            return in_array($option, $this->selectedValue) ? 'selected=selected' : '';
+        }
         return $option == $this->selected ? 'selected=selected' : '';
     }
 

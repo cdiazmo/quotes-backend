@@ -20,17 +20,12 @@
             <div class="modal-footer d-flex justify-content-between">
 
                 <div class="col-3 p-0">
-                    <button type="button" class="btn btn-outline-brown btn-block" x-on:click="show=false">Close
+                    <button type="button" class="btn btn-outline-brown btn-block">Close
                     </button>
                 </div>
 
                 {{$footer}}
             </div>
-
         @endisset
-
-
     </x-form>
-
-
 </div>
